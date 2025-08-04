@@ -1,16 +1,11 @@
 import BackToHomeButton from "../components/BackToHomeButton";
 
-interface InsecurePageProps {
-  searchParams: {
-    q?: string;
-  };
-}
-
 export default async function InsecurePage({
   searchParams,
-}: InsecurePageProps) {
-  const resolvedSearchParams = await searchParams;
-  const { q: userInput = "no query provided" } = resolvedSearchParams;
+}: Readonly<{
+  searchParams: Promise<{ q?: string }>;
+}>) {
+  const { q: userInput = "no query provided" } = await searchParams;
 
   return (
     <main className="min-h-screen bg-red-50 flex items-center justify-center p-6">

@@ -1,14 +1,11 @@
 import BackToHomeButton from "../components/BackToHomeButton";
 
-interface SecurePageProps {
-  searchParams: {
-    q?: string;
-  };
-}
-
-export default async function SecurePage({ searchParams }: SecurePageProps) {
-  const resolvedSearchParams = await searchParams;
-  const { q: userInput = "no query provided" } = resolvedSearchParams;
+export default async function SecurePage({
+  searchParams,
+}: Readonly<{
+  searchParams: Promise<{ q?: string }>;
+}>) {
+  const { q: userInput = "no query provided" } = await searchParams;
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
