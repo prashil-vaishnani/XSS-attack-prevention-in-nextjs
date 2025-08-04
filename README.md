@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔐 XSS Demo App with Next.js 15
 
-## Getting Started
+This project demonstrates common **Cross-Site Scripting (XSS)** vulnerabilities and their secure alternatives using **Next.js 15 (App Router)**. It includes both **secure** and **insecure** examples across different types of XSS attacks:
 
-First, run the development server:
+- **Reflected XSS**
+- **Stored XSS**
+- **DOM-based XSS**
 
-```bash
+---
+
+## 🗂️ Pages Overview
+
+| Route | Description | Security |
+|-------|-------------|----------|
+| `/` | Home page with navigation to all demos | ✅ Secure |
+| `/insecure` | Reflected XSS via query param | ❌ Insecure |
+| `/secure` | Safe alternative to `/insecure` | ✅ Secure |
+| `/insecure-store-xss` | Stored XSS using `dangerouslySetInnerHTML` | ❌ Insecure |
+| `/secure-store-xss` | Escaped rendering using React’s safe output | ✅ Secure |
+| `/insecure-dom-xss` | DOM-based XSS via URL hash + `innerHTML` | ❌ Insecure |
+| `/secure-dom-xss` | Secure DOM XSS handling using escaping | ✅ Secure |
+
+---
+
+## 🛡️ Middleware (Optional CSP)
+
+You can add a `middleware.ts` file to inject a **Content Security Policy (CSP)** header and a dynamic `nonce` to all responses. However, for this demo, it is **intentionally disabled** on insecure routes to allow PoC testing.
+
+```ts
+// middleware.ts
+// ⚠️ Only add CSP in real production projects
+In real-world applications, apply CSP globally and sanitize all user input.
+
+🏃 Getting Started
+1. Clone the repository
+bash
+Copy
+Edit
+git clone https://github.com/your-username/xss-demo-next.git
+cd xss-demo-next
+2. Install dependencies
+bash
+Copy
+Edit
+npm install
+3. Run the app
+bash
+Copy
+Edit
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Visit: http://localhost:3000
+
+🎯 Testing XSS Vulnerabilities
+Reflected XSS
+url
+```
+http://localhost:3000/insecure?q=<script>alert('XSS');</script>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Stored XSS
+Submit this in the form:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```html
+<img src=x onerror="alert('Stored XSS')" />
+```
+DOM-based XSS
+Use this URL directly:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+url
+```
+http://localhost:3000/insecure-dom-xss#<img src=x onerror=alert('XSS Attack!')>
+```
+📁 Folder Structure
+```
+app/
+│
+├── components/
+│   └── BackToHomeButton.tsx
+│
+├── insecure/
+│   ├── page.tsx         ← Reflected XSS
+│   └── store-xss.tsx    ← Stored XSS
+│
+├── secure/
+│   ├── page.tsx         ← Secure reflected XSS
+│   └── store-xss.tsx    ← Secure stored XSS
+│
+├── insecure-dom-xss/
+│   └── page.tsx         ← DOM-based XSS
+│
+├── secure0dom-xss/
+│   └── page.tsx         ← Secure DOM handling
+│
+└── page.tsx             ← Home page navigation
+```
 
-## Learn More
+✅ Best Practices for XSS Prevention
+Use frameworks like React that auto-escape output
 
-To learn more about Next.js, take a look at the following resources:
+Avoid dangerouslySetInnerHTML unless absolutely necessary
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Use CSP with nonce-based inline script control
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Sanitize and validate user input on both client & server sides
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
