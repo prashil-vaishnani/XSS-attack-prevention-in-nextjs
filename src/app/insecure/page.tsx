@@ -37,7 +37,7 @@ export default async function InsecurePage({
         </p>
         <pre className="bg-gray-100 p-4 rounded overflow-auto text-sm text-gray-800">
           <code>
-            {`http://localhost:3000/insecure?q=<script>alert('XSS Attack!');</script>`}
+            {`https://xss-attack-prevention-in-nextjs.vercel.app/insecure?q=<script>alert('XSS Attack!');</script>`}
           </code>
         </pre>
         <BackToHomeButton />

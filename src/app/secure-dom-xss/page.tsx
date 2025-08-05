@@ -45,7 +45,7 @@ export default function SecureDomXssPage() {
         <pre className="bg-gray-100 p-4 rounded overflow-auto text-sm text-gray-800">
           <code>{maliciousUrl}</code>
         </pre>
-      <BackToHomeButton />
+        <BackToHomeButton />
       </div>
     </main>
   );

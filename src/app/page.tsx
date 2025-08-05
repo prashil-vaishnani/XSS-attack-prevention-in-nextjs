@@ -56,6 +56,19 @@ export default function Home() {
               </div>
             </div>
           ))}
+          <div
+              className="border p-4 rounded-lg bg-white shadow"
+            >
+              <h2 className="text-xl font-semibold mb-3">Example middleware config</h2>
+              <div className="flex gap-4">
+                <Link
+                  href={'/middleware-config'}
+                  className="flex-1 text-center bg-green-100 text-green-700 px-4 py-2 rounded hover:bg-green-200 transition"
+                >
+                  ✅ Secure
+                </Link>
+              </div>
+            </div>
         </div>
       </div>
     </main>
