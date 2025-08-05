@@ -19,6 +19,7 @@ This project demonstrates common **Cross-Site Scripting (XSS)** vulnerabilities 
 | `/secure-store-xss` | Escaped rendering using React’s safe output | ✅ Secure |
 | `/insecure-dom-xss` | DOM-based XSS via URL hash + `innerHTML` | ❌ Insecure |
 | `/secure-dom-xss` | Secure DOM XSS handling using escaping | ✅ Secure |
+| `/middleware-config` | Secure Dynamic and third parties script injection with middleware |  ✅ Secure |
 
 ---
 
@@ -116,18 +117,25 @@ app/
 │
 ├── insecure/
 │   ├── page.tsx         ← Reflected XSS
-│   └── store-xss.tsx    ← Stored XSS
 │
 ├── secure/
 │   ├── page.tsx         ← Secure reflected XSS
-│   └── store-xss.tsx    ← Secure stored XSS
 │
+├── insecure-store-xss/
+│   └── page.tsx         ← Stored XSS
+│
+├── secure-store-xss/
+│   └── page.tsx         ← Secure stored XSS
+|
 ├── insecure-dom-xss/
 │   └── page.tsx         ← DOM-based XSS
 │
 ├── secure-dom-xss/
 │   └── page.tsx         ← Secure DOM handling
 │
+├── middleware-config/
+│   └── page.tsx         ← Secure Dynamic and third parties script injection with middleware
+|
 └── page.tsx             ← Home page navigation
 ```
 
